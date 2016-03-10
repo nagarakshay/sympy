@@ -7,7 +7,7 @@ from sympy.simplify.simplify import simplify
 from sympy import (S, Symbol, Lambda, symbols, cos, sin, pi, oo, Basic,
                    Rational, sqrt, tan, log, Abs, I, Tuple)
 from sympy.utilities.pytest import XFAIL, raises
-from sympy.abc import x, y, z
+from sympy.abc import x, y, z, t
 
 import itertools
 
@@ -84,6 +84,9 @@ def test_ImageSet():
     assert Tuple(2, S.Half) in ImageSet(Lambda((x, y), (x, 1/y)), c)
     assert Tuple(2, -2) not in ImageSet(Lambda((x, y), (x, y**2)), c)
     assert Tuple(2, -2) in ImageSet(Lambda((x, y), (x, -2)), c)
+    c3 = Interval(3,7)*Interval(8,11)*Interval(5,9)
+    assert Tuple(8,3,9) in Imageset(Lambda((t,y,x),(y,t,x)),c3)
+    assert Tuple(S(1)/8,3,9) in Imageset(Lambda((t,y,x),(1/y,t,x)),c3)
     assert 2/pi not in ImageSet(Lambda((x, y), 2/x), c)
     assert 2/S(100) not in ImageSet(Lambda((x, y), 2/x), c)
     assert 2/S(3) in ImageSet(Lambda((x, y), 2/x), c)
